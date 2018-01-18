@@ -48,6 +48,8 @@ function makeScatterPlot(
   //#endregion
 
   //#region Add dots
+  const timeParse = d3.timeParse("%M:%S");
+
   const dots = chart
     .selectAll("circle")
     .data(dataset)
@@ -55,8 +57,10 @@ function makeScatterPlot(
     .append("circle")
     .attr("cx", d => scaleX(d.Year))
     .attr("cy", d => scaleY(d.Seconds))
-    .attr("r", 4);
-
+    .attr("r", 4)
+    .attr("class", "dot")
+    .attr("data-xvalue", d => d.Year)
+    .attr("data-yvalue", d => timeParse(d.Time));
   // Change color to indicate doping allegations
   const hasDopingAllegations = datapoint => datapoint.Doping !== "";
   const redFill = "rgba(255, 40, 40, .5)";
