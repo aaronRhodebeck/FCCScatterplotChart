@@ -1,11 +1,11 @@
 import React from "react";
+import Chart from "./chart.jsx";
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = { data: "" };
-    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   componentWillMount() {
@@ -26,7 +26,8 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <p>${JSON.stringify(this.state.data, null, 3)}</p>
+        <h1>Chart is below</h1>
+        {this.state.data && <Chart dataset={this.state.data} />}
       </div>
     );
   }
