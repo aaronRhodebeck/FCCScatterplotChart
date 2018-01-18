@@ -18,10 +18,7 @@ function makeScatterPlot(
   //#endregion
 
   //#region Setup SVG
-  chart
-    .attr("width", width)
-    .attr("height", height)
-    .attr("class", `${classes.join(" ")}`);
+  chart.attr("class", `${classes.join(" ")}`);
   if (scaleable) {
     chart
       .attr("viewBox", `0 0 ${width} ${height}`)

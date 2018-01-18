@@ -2,6 +2,7 @@ import React from "react";
 import makeScatterPlot from "./scatterplot";
 import * as d3 from "d3";
 import { withFauxDOM } from "react-faux-dom";
+import { ChartDiv } from "./ChartDisplay";
 import { Tooltip, TooltipTitle, TooltipList } from "./tooltip.jsx";
 
 class Chart extends React.Component {
@@ -31,7 +32,7 @@ class Chart extends React.Component {
   render() {
     const tooltip = this.state.tooltipData;
     return (
-      <div>
+      <ChartDiv>
         {this.props.chart}
         <Tooltip
           visibility={this.state.tooltipVisibility}
@@ -48,7 +49,7 @@ class Chart extends React.Component {
             <li>{tooltip.Doping}</li>
           </TooltipList>
         </Tooltip>
-      </div>
+      </ChartDiv>
     );
   }
 }

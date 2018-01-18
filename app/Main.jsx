@@ -1,5 +1,18 @@
 import React from "react";
 import Chart from "./chart.jsx";
+import styled from "styled-components";
+
+const PageTitle = styled.h1`
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-bottom: 5px;
+`;
+
+const PageSubtitle = styled.p`
+  text-align: center;
+  font-size: 1em;
+  margin-top: 0px;
+`;
 
 class Main extends React.Component {
   constructor(props) {
@@ -26,7 +39,13 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <h1>Chart is below</h1>
+        <PageTitle>D3 Scatterplot</PageTitle>
+        <PageSubtitle>
+          <i>
+            Created using D3 and React for freeCodeCamp Data Visualization challenge<br />{" "}
+            by Aaron Rhodebeck
+          </i>
+        </PageSubtitle>
         {this.state.data && <Chart dataset={this.state.data} />}
       </div>
     );
