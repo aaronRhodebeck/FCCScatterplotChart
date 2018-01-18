@@ -76,11 +76,13 @@ function makeScatterPlot(
   chart
     .append("g")
     .call(axisX)
-    .attr("transform", `translate(0,${height - margin.bottom})`);
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .attr("id", "x-axis");
   chart
     .append("g")
     .call(axisY)
-    .attr("transform", `translate(${margin.left},0)`);
+    .attr("transform", `translate(${margin.left},0)`)
+    .attr("id", "y-axis");
   //#endregion
 
   //#region Add tool tip
@@ -147,4 +149,5 @@ function makeScatterPlot(
 >>>>>>> Add title to graph
   //#endregion
 }
+
 export default makeScatterPlot;
