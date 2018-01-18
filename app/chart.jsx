@@ -35,9 +35,11 @@ class Chart extends React.Component {
       <ChartDiv>
         {this.props.chart}
         <Tooltip
-          visibility={this.state.tooltipVisibility}
+          style={{ visibility: this.state.tooltipVisibility }}
           top={this.state.tooltipY}
           left={this.state.tooltipX}
+          id="tooltip"
+          data-year={tooltip.Year}
         >
           <TooltipTitle>
             {tooltip.Name} {tooltip.Nationality}
