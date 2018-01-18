@@ -17,7 +17,7 @@ function makeScatterPlot(
   const chart = d3.select(elementToAttachTo).append("svg");
   //#endregion
 
-  //#region Setup SVG
+  //#region Make chart scaleable
   chart.attr("class", `${classes.join(" ")}`);
   if (scaleable) {
     chart
@@ -31,7 +31,7 @@ function makeScatterPlot(
   const scaleX = d3.scaleLinear(); // Year
   const scaleY = d3.scaleLinear(); // Time to complete course
 
-  const minYear = d3.min(dataset, d => d.Year - 1);
+  const minYear = d3.min(dataset, d => d.Year);
   const maxYear = d3.max(dataset, d => d.Year);
 
   const minTime = d3.min(dataset, d => d.Seconds);
@@ -48,6 +48,8 @@ function makeScatterPlot(
   //#endregion
 
   //#region Add dots
+  const timeParse = d3.timeParse("%M:%S");
+
   const dots = chart
     .selectAll("circle")
     .data(dataset)
@@ -55,8 +57,10 @@ function makeScatterPlot(
     .append("circle")
     .attr("cx", d => scaleX(d.Year))
     .attr("cy", d => scaleY(d.Seconds))
-    .attr("r", 4);
-
+    .attr("r", 4)
+    .attr("class", "dot")
+    .attr("data-xvalue", d => d.Year)
+    .attr("data-yvalue", d => timeParse(d.Time));
   // Change color to indicate doping allegations
   const hasDopingAllegations = datapoint => datapoint.Doping !== "";
   const redFill = "rgba(255, 40, 40, .5)";
@@ -76,11 +80,13 @@ function makeScatterPlot(
   chart
     .append("g")
     .call(axisX)
-    .attr("transform", `translate(0,${height - margin.bottom})`);
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .attr("id", "x-axis");
   chart
     .append("g")
     .call(axisY)
-    .attr("transform", `translate(${margin.left},0)`);
+    .attr("transform", `translate(${margin.left},0)`)
+    .attr("id", "y-axis");
   //#endregion
 
   //#region Add tool tip
@@ -134,6 +140,15 @@ function makeScatterPlot(
     .attr("transform", "translate(5, 13)")
     .style("stroke", "black");
 
+  //#region Add title to chart
+  chart
+    .append("text")
+    .text("Doping in Professional Bicycle Racing")
+    .attr("id", "title")
+    .attr("text-anchor", "middle")
+    .attr("x", 330)
+    .attr("y", 30);
   //#endregion
 }
+
 export default makeScatterPlot;
