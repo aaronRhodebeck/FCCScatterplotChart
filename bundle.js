@@ -30078,9 +30078,11 @@ var Chart = function (_React$Component) {
         _react2.default.createElement(
           _tooltip.Tooltip,
           {
-            visibility: this.state.tooltipVisibility,
+            style: { visibility: this.state.tooltipVisibility },
             top: this.state.tooltipY,
-            left: this.state.tooltipX
+            left: this.state.tooltipX,
+            id: "tooltip",
+            "data-year": tooltip.Year
           },
           _react2.default.createElement(
             _tooltip.TooltipTitle,
@@ -30162,7 +30164,7 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
   var chart = d3.select(elementToAttachTo).append("svg");
   //#endregion
 
-  //#region Setup SVG
+  //#region Make chart scaleable
   chart.attr("class", "" + classes.join(" "));
   if (scaleable) {
     chart.attr("viewBox", "0 0 " + width + " " + height).attr("preserveAspectRatio", "xMinYMin");
@@ -30175,7 +30177,7 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
   var scaleY = d3.scaleLinear(); // Time to complete course
 
   var minYear = d3.min(dataset, function (d) {
-    return d.Year - 1;
+    return d.Year;
   });
   var maxYear = d3.max(dataset, function (d) {
     return d.Year;
@@ -30193,12 +30195,17 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
   //#endregion
 
   //#region Add dots
+  var timeParse = d3.timeParse("%M:%S");
+
   var dots = chart.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function (d) {
     return scaleX(d.Year);
   }).attr("cy", function (d) {
     return scaleY(d.Seconds);
-  }).attr("r", 4);
-
+  }).attr("r", 4).attr("class", "dot").attr("data-xvalue", function (d) {
+    return d.Year;
+  }).attr("data-yvalue", function (d) {
+    return timeParse(d.Time);
+  });
   // Change color to indicate doping allegations
   var hasDopingAllegations = function hasDopingAllegations(datapoint) {
     return datapoint.Doping !== "";
@@ -30219,8 +30226,8 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
     return Math.floor(seconds / 60) + ":" + ("0" + seconds % 60).slice(-2);
   });
 
-  chart.append("g").call(axisX).attr("transform", "translate(0," + (height - margin.bottom) + ")");
-  chart.append("g").call(axisY).attr("transform", "translate(" + margin.left + ",0)");
+  chart.append("g").call(axisX).attr("transform", "translate(0," + (height - margin.bottom) + ")").attr("id", "x-axis");
+  chart.append("g").call(axisY).attr("transform", "translate(" + margin.left + ",0)").attr("id", "y-axis");
   //#endregion
 
   //#region Add tool tip
@@ -30253,8 +30260,11 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
 
   legend.append("rect").style("fill", greenFill).attr("height", 10).attr("width", 10).attr("transform", "translate(5, 13)").style("stroke", "black");
 
+  //#region Add title to chart
+  chart.append("text").text("Doping in Professional Bicycle Racing").attr("id", "title").attr("text-anchor", "middle").attr("x", 330).attr("y", 30);
   //#endregion
 }
+
 exports.default = makeScatterPlot;
 
 /***/ }),
