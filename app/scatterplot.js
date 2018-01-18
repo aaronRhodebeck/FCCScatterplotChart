@@ -17,7 +17,7 @@ function makeScatterPlot(
   const chart = d3.select(elementToAttachTo).append("svg");
   //#endregion
 
-  //#region Setup SVG
+  //#region Make chart scaleable
   chart.attr("class", `${classes.join(" ")}`);
   if (scaleable) {
     chart
@@ -100,6 +100,7 @@ function makeScatterPlot(
   });
   //#endregion
 
+<<<<<<< HEAD
   //#region Add legend
   const legend = chart.append("g").attr("id", "legend");
 
@@ -134,6 +135,16 @@ function makeScatterPlot(
     .attr("transform", "translate(5, 13)")
     .style("stroke", "black");
 
+=======
+  //#region Add title to chart
+  chart
+    .append("text")
+    .text("Doping in Professional Bicycle Racing")
+    .attr("id", "title")
+    .attr("text-anchor", "middle")
+    .attr("x", 330)
+    .attr("y", 30);
+>>>>>>> Add title to graph
   //#endregion
 }
 export default makeScatterPlot;
