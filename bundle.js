@@ -30239,6 +30239,21 @@ function makeScatterPlot(elementToAttachTo, dataset, parentComponent) {
     });
   });
   //#endregion
+
+  //#region Add legend
+  var legend = chart.append("g").attr("id", "legend");
+
+  legend.attr("transform", "translate(520, 180)");
+
+  legend.append("text").text("Allegations of Doping").style("font-size", 13).attr("text-anchor", "end");
+
+  legend.append("text").text("No Allegation of Doping").style("font-size", 13).attr("transform", "translate(0, 20)").attr("text-anchor", "end");
+
+  legend.append("rect").style("fill", redFill).attr("height", 10).attr("width", 10).style("stroke", "black").attr("transform", "translate(5, -8)");
+
+  legend.append("rect").style("fill", greenFill).attr("height", 10).attr("width", 10).attr("transform", "translate(5, 13)").style("stroke", "black");
+
+  //#endregion
 }
 exports.default = makeScatterPlot;
 
