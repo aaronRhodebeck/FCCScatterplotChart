@@ -92,6 +92,12 @@ function makeScatterPlot(
       tooltipData: d
     });
   });
+
+  dots.on("mouseout", () => {
+    parentComponent.setState({
+      tooltipVisibility: "hidden"
+    });
+  });
   //#endregion
 }
 export default makeScatterPlot;
