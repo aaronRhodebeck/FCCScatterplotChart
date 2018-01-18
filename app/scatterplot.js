@@ -31,7 +31,7 @@ function makeScatterPlot(
   const scaleX = d3.scaleLinear(); // Year
   const scaleY = d3.scaleLinear(); // Time to complete course
 
-  const minYear = d3.min(dataset, d => d.Year - 1);
+  const minYear = d3.min(dataset, d => d.Year);
   const maxYear = d3.max(dataset, d => d.Year);
 
   const minTime = d3.min(dataset, d => d.Seconds);
