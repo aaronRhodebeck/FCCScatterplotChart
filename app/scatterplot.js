@@ -106,7 +106,6 @@ function makeScatterPlot(
   });
   //#endregion
 
-<<<<<<< HEAD
   //#region Add legend
   const legend = chart.append("g").attr("id", "legend");
 
@@ -141,7 +140,6 @@ function makeScatterPlot(
     .attr("transform", "translate(5, 13)")
     .style("stroke", "black");
 
-=======
   //#region Add title to chart
   chart
     .append("text")
@@ -150,7 +148,6 @@ function makeScatterPlot(
     .attr("text-anchor", "middle")
     .attr("x", 330)
     .attr("y", 30);
->>>>>>> Add title to graph
   //#endregion
 }
 
